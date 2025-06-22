@@ -1,38 +1,31 @@
 import axios from 'axios';
 REACT_APP_API_BASE='https://retalp-backend-3.onrender.com/api';
-
-// Base API URL: Uses env variable in production, falls back to localhost for local dev
+// Use environment variable for API base
 const API_BASE = process.REACT_APP_API_BASE || 'http://localhost:8000/api';
 
-// Global Axios configuration
 axios.defaults.withCredentials = false;
 
-// Enhanced Axios error handler
+// Error interceptor
 axios.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
-      console.error('API Error Response:', {
-        status: error.response.status,
-        data: error.response.data,
-        headers: error.response.headers
-      });
+      console.error('API Error:', error.response.status, error.response.data);
     } else if (error.request) {
       console.error('API Request Error:', error.request);
     } else {
-      console.error('API Configuration Error:', error.message);
+      console.error('API Error:', error.message);
     }
     return Promise.reject(error);
   }
 );
 
-// --- Upload File ---
-export const uploadFile = async (file, config = {}) => {
+// UPLOAD - Fixed endpoint without trailing slash
+export const uploadFile = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
-  return axios.post(`${API_BASE}/upload/`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-    ...config
+  return axios.post(`${API_BASE}/upload`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
   });
 };
 
@@ -134,4 +127,3 @@ export const downloadReport = (fileId) => {
     responseType: 'blob'
   });
 };
-
