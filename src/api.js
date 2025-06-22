@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Base API URL
-const API_BASE = 'https://retalp-backend-3.onrender.com';
+// Base API URL: Uses env variable in production, falls back to localhost for local dev
+const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8000/api';
 
 // Global Axios configuration
 axios.defaults.withCredentials = false;
@@ -75,7 +75,7 @@ export const handleOutliers = (fileId, action, column, outlierIndices) => {
   });
 };
 
-// --- Visualization (Main fix here) ---
+// --- Visualization (Robust) ---
 export const generateVisualization = (fileId, chartType, xCol, yCol, hueCol) => {
   if (!fileId || !chartType || !xCol) {
     return Promise.reject(new Error('Missing required parameters for visualization'));
