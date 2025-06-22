@@ -1,5 +1,8 @@
+
+
 import axios from 'axios';
 REACT_APP_API_BASE='https://retalp-backend-3.onrender.com/api';
+
 // Use environment variable for API base
 const API_BASE = process.REACT_APP_API_BASE || 'http://localhost:8000/api';
 
@@ -20,10 +23,11 @@ axios.interceptors.response.use(
   }
 );
 
-// UPLOAD - Fixed endpoint without trailing slash
+// UPLOAD - Critical fix: no trailing slash
 export const uploadFile = async (file) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', file);  // Field name must match backend parameter
+  console.log("Uploading to:", `${API_BASE}/upload`);  // Debug log
   return axios.post(`${API_BASE}/upload`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
@@ -127,3 +131,7 @@ export const downloadReport = (fileId) => {
     responseType: 'blob'
   });
 };
+
+
+
+
