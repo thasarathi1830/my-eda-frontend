@@ -1,4 +1,5 @@
 import axios from 'axios';
+REACT_APP_API_BASE='https://retalp-backend-3.onrender.com/api';
 
 // Base API URL: Uses env variable in production, falls back to localhost for local dev
 const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8000/api';
