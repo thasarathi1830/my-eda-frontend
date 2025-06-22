@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API URL
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = 'https://retalp-backend-3.onrender.com';
 
 // Global Axios configuration
 axios.defaults.withCredentials = false;
