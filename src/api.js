@@ -75,7 +75,7 @@ export const handleOutliers = (fileId, action, column, outlierIndices) => {
   });
 };
 
-// --- Visualization (Robust) ---
+// --- Visualization ---
 export const generateVisualization = (fileId, chartType, xCol, yCol, hueCol) => {
   if (!fileId || !chartType || !xCol) {
     return Promise.reject(new Error('Missing required parameters for visualization'));
