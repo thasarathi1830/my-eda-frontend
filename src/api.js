@@ -1,34 +1,33 @@
-
-
 import axios from 'axios';
 
-
-// Use environment variable for API base
+// Use environment variable for API base or fallback to localhost for dev
 const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8000/api';
 
 axios.defaults.withCredentials = false;
 
-// Error interceptor
+// Robust Axios error handler
 axios.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
+      // The backend responded with an error status code (4xx, 5xx)
       console.error('API Error:', error.response.status, error.response.data);
     } else if (error.request) {
-      console.error('API Request Error:', error.request);
+      // The request was made but no response was received
+      console.error('API Request Error: No response received', error.request);
     } else {
+      // Something happened in setting up the request
       console.error('API Error:', error.message);
     }
     return Promise.reject(error);
   }
 );
 
-// UPLOAD - Critical fix: no trailing slash
+// --- Upload File ---
 export const uploadFile = async (file) => {
   const formData = new FormData();
-  formData.append('file', file);  // Field name must match backend parameter
-  console.log("Uploading to:", `${API_BASE}/file_upload`);  // Debug log
-  return axios.post(`${API_BASE}/file_upload`, formData, {
+  formData.append('file', file); // Field name must match backend parameter
+  return axios.post(`${API_BASE}/upload`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 };
@@ -131,6 +130,3 @@ export const downloadReport = (fileId) => {
     responseType: 'blob'
   });
 };
-
-
-
