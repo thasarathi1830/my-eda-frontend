@@ -1,22 +1,19 @@
 import axios from 'axios';
 
-// Directly set your Render backend URL here
+// Hardcoded Render backend URL
 const API_BASE = 'https://retalp-backend-3.onrender.com/api';
 
 axios.defaults.withCredentials = false;
 
-// Robust Axios error handler
+// Robust Axios error handling
 axios.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
-      // The backend responded with an error status code (4xx, 5xx)
       console.error('API Error:', error.response.status, error.response.data);
     } else if (error.request) {
-      // The request was made but no response was received
       console.error('API Request Error: No response received', error.request);
     } else {
-      // Something happened in setting up the request
       console.error('API Error:', error.message);
     }
     return Promise.reject(error);
@@ -26,8 +23,8 @@ axios.interceptors.response.use(
 // --- Upload File ---
 export const uploadFile = async (file) => {
   const formData = new FormData();
-  formData.append('file', file);
-  return axios.post(`${API_BASE}/file_upload`, formData, {
+  formData.append('file', file); // Field name must match backend parameter
+  return axios.post(`${API_BASE}/upload`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 };
