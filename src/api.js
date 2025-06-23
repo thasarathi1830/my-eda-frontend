@@ -1,10 +1,10 @@
 
 
 import axios from 'axios';
-REACT_APP_API_BASE='https://retalp-backend-3.onrender.com/api';
+
 
 // Use environment variable for API base
-const API_BASE = process.REACT_APP_API_BASE || 'http://localhost:8000/api';
+const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8000/api';
 
 axios.defaults.withCredentials = false;
 
