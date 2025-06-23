@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Directly set your Render backend URL here
-const API_BASE = 'https://retalp-backend-3.onrender.com/api';
+const API_BASE = 'https://retalp-backend-3.onrender.com';
 
 axios.defaults.withCredentials = false;
 
