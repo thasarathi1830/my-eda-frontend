@@ -23,7 +23,7 @@ axios.interceptors.response.use(
 // --- Upload File ---
 export const uploadFile = async (file) => {
   const formData = new FormData();
-  formData.append('file', file); // Field name must match backend parameter
+  formData.append('file', file);
   return axios.post(`${API_BASE}/upload`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
